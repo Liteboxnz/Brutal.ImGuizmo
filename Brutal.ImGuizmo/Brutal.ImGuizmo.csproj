@@ -5,6 +5,10 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <RootNamespace>Brutal.ImGuizmoAPI</RootNamespace>
+        <PackageId>LiteboxNZ.$(AssemblyName)</PackageId>
+        <Company>LiteboxNZ</Company>
+        <Description>ImGuizmo port for the Brutal framework</Description>
+        <Title>Brutal ImGuizmo</Title>
     </PropertyGroup>
 
     <ItemGroup>
