@@ -1,4 +1,6 @@
 # Brutal.ImGuizmo
-A ImGuizmo port for Brutal.ImGui. No Association with Brutal team or Ahwoo.
+A ImGuizmo port for Brutal.ImGui. 
 
-[IN DEVELOPMENT & USING STUBS]
+**No Association with Original Author or Brutal framework**
+
+![Translate widget](Preview/translate.png)
