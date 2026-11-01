@@ -92,9 +92,13 @@ public static class ImGuizmo
    // ImGuizmo::RecomposeMatrixFromComponents(matrixTranslation, matrixRotation, matrixScale, gizmoMatrix.m16);
    //
    // These functions have some numerical stability issues for now. Use with caution.
-   public static void DecomposeMatrixToComponents(float4 matrix, float4 translation, float4 rotation, float4 scale){
+   public static void DecomposeMatrixToComponents(float4x4 matrix, out float3 translation, out float3 rotation, out float3 scale){
+	   translation = matrix.Translation;
+	   rotation = float3.Zero;
+	   scale = float3.One;
    }
-   public static void RecomposeMatrixFromComponents(float4 translation, float4 rotation, float4 scale, float4 matrix){
+   
+   public static void RecomposeMatrixFromComponents(float3 translation, float3 rotation, float3 scale, float4x4 matrix){
    }
 
    public static void SetRect(float x, float y, float width, float height)
@@ -113,7 +117,7 @@ public static class ImGuizmo
    public static void DrawGrid(float4 view, float4 projection, float4 matrix, float4 gridSize){
    }
 
-   public static bool Manipulate(float4 view, float4 projection, ImGuizmoOperation operation, ImGuizmoMode mode, float4x4 matrix, float4x4? deltaMatrix, float3? snap, float3? localBounds, float3? boundsSnap){
+   public static bool Manipulate(float4x4 view, float4x4 projection, ImGuizmoOperation operation, ImGuizmoMode mode, ref float4x4 matrix, float4x4? deltaMatrix, float3? snap, float3? localBounds, float3? boundsSnap){
 	  return false;
    }
 	   
