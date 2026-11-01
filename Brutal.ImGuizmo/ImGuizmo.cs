@@ -44,83 +44,83 @@ internal struct ImGuizmoStyle
 internal class ImGuizmoContext
 {
 
-      ImDrawList? mDrawList;
-      ImGuizmoStyle mStyle;
+      public ImDrawList? mDrawList;
+      public ImGuizmoStyle mStyle;
 
-      ImGuizmoMode mMode;
-      float4x4 mViewMat;
-      float4x4 mProjectionMat;
-      float4x4 mModel;
-      float4x4 mModelLocal; // orthonormalized model
-      float4x4 mModelInverse;
-      float4x4 mModelSource;
-      float4x4 mModelSourceInverse;
-      float4x4 mMVP;
-      float4x4 mMVPLocal; // MVP with full model matrix whereas mMVP's model matrix might only be translation in case of World space edition
-      float4x4 mViewProjection;
+      public ImGuizmoMode mMode;
+      public float4x4 mViewMat;
+      public float4x4 mProjectionMat;
+      public float4x4 mModel;
+      public float4x4 mModelLocal; // orthonormalized model
+      public float4x4 mModelInverse;
+      public float4x4 mModelSource;
+      public float4x4 mModelSourceInverse;
+      public float4x4 mMVP;
+      public float4x4 mMVPLocal; // MVP with full model matrix whereas mMVP's model matrix might only be translation in case of World space edition
+      public float4x4 mViewProjection;
 
-      float4 mModelScaleOrigin;
-      float4 mCameraEye;
-      float4 mCameraRight;
-      float4 mCameraDir;
-      float4 mCameraUp;
-      float4 mRayOrigin;
-      float4 mRayVector;
+      public float4 mModelScaleOrigin;
+      public float4 mCameraEye;
+      public float4 mCameraRight;
+      public float4 mCameraDir;
+      public float4 mCameraUp;
+      public float4 mRayOrigin;
+      public float4 mRayVector;
 
-      float  mRadiusSquareCenter;
-      float2 mScreenSquareCenter;
-      float2 mScreenSquareMin;
-      float2 mScreenSquareMax;
+      public float  mRadiusSquareCenter;
+      public float2 mScreenSquareCenter;
+      public float2 mScreenSquareMin;
+      public float2 mScreenSquareMax;
 
-      float mScreenFactor;
-      float4 mRelativeOrigin;
+      public float mScreenFactor;
+      public float4 mRelativeOrigin;
 
-      bool mbUsing = false;
-      bool mbUsingViewManipulate = false;
-      bool mbEnable = true;
-      bool mbMouseOver;
-      bool mReversed; // reversed projection matrix
-      bool mIsViewManipulatorHovered = false;
+      public bool mbUsing = false;
+      public bool mbUsingViewManipulate = false;
+      public bool mbEnable = true;
+      public bool mbMouseOver;
+      public bool mReversed; // reversed projection matrix
+      public bool mIsViewManipulatorHovered = false;
 
       // translation
-      float4 mTranslationPlan;
-      float4 mTranslationPlanOrigin;
-      float4 mMatrixOrigin;
-      float4 mTranslationLastDelta;
+      public float4 mTranslationPlan;
+      public float4 mTranslationPlanOrigin;
+      public float4 mMatrixOrigin;
+      public float4 mTranslationLastDelta;
 
       // rotation
-      float4 mRotationVectorSource;
-      float mRotationAngle;
-      float mRotationAngleOrigin;
+      public float4 mRotationVectorSource;
+      public float mRotationAngle;
+      public float mRotationAngleOrigin;
       //float4 mWorldToLocalAxis;
 
       // scale
-      float4 mScale;
-      float4 mScaleValueOrigin;
-      float4 mScaleLast;
-      float mSaveMousePosx;
+      public float4 mScale;
+      public float4 mScaleValueOrigin;
+      public float4 mScaleLast;
+      public float mSaveMousePosx;
 
       // save axis factor when using gizmo
-      bool3 mBelowAxisLimit;
-      int mAxisMask = 0;
-      bool3 mBelowPlaneLimit;
-      float3 mAxisFactor;
+      public bool3 mBelowAxisLimit;
+      public int mAxisMask = 0;
+      public bool3 mBelowPlaneLimit;
+      public float3 mAxisFactor;
 
-      float mAxisLimit=0.0025f;
-      float mPlaneLimit=0.02f;
+      public float mAxisLimit=0.0025f;
+      public float mPlaneLimit=0.02f;
 
       // bounds stretching
-      float4 mBoundsPivot;
-      float4 mBoundsAnchor;
-      float4 mBoundsPlan;
-      float4 mBoundsLocalPivot;
-      int mBoundsBestAxis;
-      int2 mBoundsAxis;
-      bool mbUsingBounds = false;
-      float4x4 mBoundsMatrix;
+      public float4 mBoundsPivot;
+      public float4 mBoundsAnchor;
+      public float4 mBoundsPlan;
+      public float4 mBoundsLocalPivot;
+      public int mBoundsBestAxis;
+      public int2 mBoundsAxis;
+      public bool mbUsingBounds = false;
+      public float4x4 mBoundsMatrix;
 
       //
-      int mCurrentOperation;
+      public int mCurrentOperation;
 
       public float mX = 0.0f;
       public float mY = 0.0f;
@@ -130,17 +130,37 @@ internal class ImGuizmoContext
       public float mYMax = 0.0f;
       public float mDisplayRatio = 1.0f;
 
-      bool mIsOrthographic = false;
+      public bool mIsOrthographic = false;
       // check to not have multiple gizmo highlighted at the same time
-      bool mbOverGizmoHotspot = false;
+      public bool mbOverGizmoHotspot = false;
 
-      ImGuiWindow? mAlternativeWindow;
-      ImVector<ImGuiID> mIDStack;
-      private ImGuiID? mEditingID;
-      private ImGuizmoOperation mOperation = ImGuizmoOperation.Default;
+      public ImGuiWindow? mAlternativeWindow;
+      public ImVector<ImGuiID> mIDStack;
+      public ImGuiID? mEditingID;
+      public ImGuizmoOperation mOperation = ImGuizmoOperation.Default;
 
-      bool mAllowAxisFlip = true;
-      float mGizmoSizeClipSpace = 0.1f;
+      public bool mAllowAxisFlip = true;
+      public float mGizmoSizeClipSpace = 0.1f;
+}
+
+internal enum ImGuizmoMoveType
+{
+	MT_NONE,
+	MT_MOVE_X,
+	MT_MOVE_Y,
+	MT_MOVE_Z,
+	MT_MOVE_YZ,
+	MT_MOVE_ZX,
+	MT_MOVE_XY,
+	MT_MOVE_SCREEN,
+	MT_ROTATE_X,
+	MT_ROTATE_Y,
+	MT_ROTATE_Z,
+	MT_ROTATE_SCREEN,
+	MT_SCALE_X,
+	MT_SCALE_Y,
+	MT_SCALE_Z,
+	MT_SCALE_XYZ
 }
 
 public static class ImGuizmo
@@ -243,9 +263,182 @@ public static class ImGuizmo
    }
 
    public static bool Manipulate(float4x4 view, float4x4 projection, ImGuizmoOperation operation, ImGuizmoMode mode, ref float4x4 matrix, float4x4? deltaMatrix, float3? snap, float3? localBounds, float3? boundsSnap){
-	  return false;
+	  
+	   bool manipulated = false;
+/*
+ * gContext.mDrawList->PushClipRect (ImVec2 (gContext.mX, gContext.mY), ImVec2 (gContext.mX + gContext.mWidth, gContext.mY + gContext.mHeight), false);
+ */
+	     // Scale is always local or matrix will be skewed when applying world scale or oriented matrix
+	     ImGuizmoMode mMode = (operation == ImGuizmoOperation.Scale) ? ImGuizmoMode.Local : mode;
+	     ComputeContext(view, projection, matrix, mMode);
+
+	     // set delta to identity
+	     if (deltaMatrix != null)
+	     {
+		     deltaMatrix = float4x4.Identity;
+	     }
+
+	     // behind camera
+	     float4 camSpacePosition = TransformPoint(float4.Zero, gContext.mMVP);
+	     if (!gContext.mIsOrthographic && camSpacePosition.Z < 0.001f && !gContext.mbUsing)
+	     {
+	        return false;
+	     }
+
+	     ImGuizmoMoveType type = ImGuizmoMoveType.MT_NONE;
+	     if (gContext.mbEnable)
+	     {
+	        if (!gContext.mbUsingBounds)
+	        {
+	           manipulated = (HandleTranslation(matrix, deltaMatrix, operation, type, snap) ||
+	                         HandleScale(matrix, deltaMatrix, operation, type, snap) ||
+	                         HandleRotation(matrix, deltaMatrix, operation, type, snap));
+	        }
+	     }
+
+	      //if (localBounds != null && !gContext.mbUsing)
+	      //{
+	     //    manipulated |= HandleAndDrawLocalBounds(localBounds, (matrix_t*)matrix, boundsSnap, operation);
+	      //}
+
+	     gContext.mOperation = operation;
+	     if (!gContext.mbUsingBounds)
+	     {
+	        DrawRotationGizmo(operation, type);
+	        DrawTranslationGizmo(operation, type);
+	        DrawScaleGizmo(operation, type);
+	        DrawScaleUniveralGizmo(operation, type);
+	     }
+
+	     // gContext.mDrawList?.PopClipRect ();
+
+	   return manipulated;
    }
+
+   private static float4 TransformPoint(float4 src, float4x4 matrix)
+   {
+	   float4 result = float4.Zero;
+
+	   result.X = src.X * matrix.M11 + src.Y * matrix.M21 + src.Z * matrix.M31 + matrix.M41;
+	   result.Y = src.X * matrix.M12 + src.Y * matrix.M22 + src.Z * matrix.M32 + matrix.M42;
+	   result.Z = src.X * matrix.M13 + src.Y * matrix.M23 + src.Z * matrix.M33 + matrix.M43;
+	   result.W = src.X * matrix.M14 + src.Y * matrix.M24 + src.Z * matrix.M34 + matrix.M44;
 	   
+	   return result;
+   }
+   
+   private static void DrawScaleUniveralGizmo(ImGuizmoOperation operation, ImGuizmoMoveType type)
+   {
+	   throw new NotImplementedException();
+   }
+
+   private static void DrawScaleGizmo(ImGuizmoOperation operation, ImGuizmoMoveType type)
+   {
+	   throw new NotImplementedException();
+   }
+
+   private static void DrawTranslationGizmo(ImGuizmoOperation operation, ImGuizmoMoveType type)
+   {
+	   throw new NotImplementedException();
+   }
+
+   private static void DrawRotationGizmo(ImGuizmoOperation operation, ImGuizmoMoveType type)
+   {
+	   throw new NotImplementedException();
+   }
+
+   private static bool HandleRotation(float4x4 matrix, float4x4? deltaMatrix, ImGuizmoOperation operation, ImGuizmoMoveType type, float3? snap)
+   {
+	   throw new NotImplementedException();
+   }
+
+   private static bool HandleScale(float4x4 matrix, float4x4? deltaMatrix, ImGuizmoOperation operation, ImGuizmoMoveType type, float3? snap)
+   {
+	   throw new NotImplementedException();
+   }
+
+   private static bool HandleTranslation(float4x4 matrix, float4x4? deltaMatrix, ImGuizmoOperation operation, ImGuizmoMoveType type, float3? snap)
+   {
+	   throw new NotImplementedException();
+   }
+
+   private static void ComputeContext(float4x4 view, float4x4 projection, float4x4 matrix, ImGuizmoMode mode)
+   {
+	   gContext.mMode = mode;
+	   gContext.mViewMat = view;
+	   gContext.mProjectionMat = projection;
+	   gContext.mbMouseOver = IsHoveringWindow();
+	   gContext.mModelLocal = matrix;
+	   // gContext.mModelLocal.OrthoNormalize();
+
+	   if (mode == ImGuizmoMode.Local)
+	   {
+		   gContext.mModel = gContext.mModelLocal;
+	   }
+	   else
+	   {
+		   // gContext.mModel.Translation(matrix.Translation);
+	   }
+
+	   gContext.mModelSource = matrix;
+	   //gContext.mModelScaleOrigin.Set(gContext.mModelSource.v.right.Length(), gContext.mModelSource.v.up.Length(), gContext.mModelSource.v.dir.Length());
+	   
+	   /*
+
+	      gContext.mModelInverse.Inverse(gContext.mModel);
+	      gContext.mModelSourceInverse.Inverse(gContext.mModelSource);
+	      */
+	   
+	   
+	      gContext.mViewProjection = gContext.mViewMat * gContext.mProjectionMat;
+	      gContext.mMVP = gContext.mModel * gContext.mViewProjection;
+	      gContext.mMVPLocal = gContext.mModelLocal * gContext.mViewProjection;
+
+	      float4x4.Invert(gContext.mViewMat, out var viewInverse);
+	      // gContext.mCameraDir = viewInverse.v.dir;
+	      // gContext.mCameraEye = viewInverse.v.position;
+	      // gContext.mCameraRight = viewInverse.v.right;
+	      // gContext.mCameraUp = viewInverse.v.up;
+
+	      // projection reverse
+	      float4 nearPos = new float4(0.0f, 0.0f, 1.0f, 1.0f) * gContext.mProjectionMat;
+	      float4 farPos = new float4(0.0f, 0.0f, 2.0f, 1.0f) * gContext.mProjectionMat;
+
+	       gContext.mReversed = (nearPos.Z/nearPos.W) > (farPos.Z / farPos.W);
+
+	      // compute scale from the size of camera right vector projected on screen at the matrix position
+	      // float4 pointRight = viewInverse.v.right;
+	      // TransformPoint(pointRight, gContext.mViewProjection);
+
+	      // float4 rightViewInverse = viewInverse.v.right;
+	      // rightViewInverse.TransformVector(gContext.mModelInverse);
+	      // float rightLength = GetSegmentLengthClipSpace(new float2(0.0f, 0.0f), rightViewInverse);
+	      // gContext.mScreenFactor = gContext.mGizmoSizeClipSpace / rightLength;
+
+	      float2 centerSSpace = worldToPos(new float2(0.0f, 0.0f), gContext.mMVP);
+	      gContext.mScreenSquareCenter = centerSSpace;
+	      gContext.mScreenSquareMin = new float2(centerSSpace.X - 10.0f, centerSSpace.Y - 10.0f);
+	      gContext.mScreenSquareMax = new float2(centerSSpace.X + 10.0f, centerSSpace.Y + 10.0f);
+
+	      ComputeCameraRay(gContext.mRayOrigin, gContext.mRayVector);
+	    
+   }
+
+   private static float2 worldToPos(float2 vec2, float4x4 gContextMMvp)
+   {
+	   return float2.Zero;
+   }
+
+   private static void ComputeCameraRay(float4 gContextMRayOrigin, float4 gContextMRayVector)
+   {
+	   
+   }
+
+   private static bool IsHoveringWindow()
+   {
+	   return false;
+   }
+
    //
    // Please note that this cubeview is patented by Autodesk : https://patents.google.com/patent/US7782319B2/en
    // It seems to be a defensive patent in the US. I don't think it will bring troubles using it as
