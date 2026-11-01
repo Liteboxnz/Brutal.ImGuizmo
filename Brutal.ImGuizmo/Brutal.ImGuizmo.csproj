@@ -8,8 +8,18 @@
         <PackageId>LiteboxNZ.$(AssemblyName)</PackageId>
         <Company>LiteboxNZ</Company>
         <Description>ImGuizmo port for the Brutal framework</Description>
-        <Title>Brutal ImGuizmo</Title>
+        <Title>LiteboxNZ.BRUTAL.ImGuizmo</Title>
+        <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+        <Authors>LiteboxNZ</Authors>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
     </PropertyGroup>
+
+    <ItemGroup>
+      <None Include="..\README.md">
+        <Pack>True</Pack>
+        <PackagePath>\</PackagePath>
+      </None>
+    </ItemGroup>
 
     <ItemGroup>
       <PackageReference Include="Ahwoo.BRUTAL.ImGui" Version="2026.10.3" />
