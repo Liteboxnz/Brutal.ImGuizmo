@@ -1,5 +1,5 @@
-﻿// https://github.com/CedricGuillemet/ImGuizmo
-// C# port for the Brutal framework (ImGuizmo v1.92.5 WIP behavior).
+﻿// C# port for the Brutal framework (ImGuizmo v1.92.5 WIP behavior).
+// https://github.com/CedricGuillemet/ImGuizmo
 //
 // The MIT License (MIT)
 // Copyright (c) 2016-2026 Cedric Guillemet and contributors

@@ -12,10 +12,11 @@
         <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
         <Authors>LiteboxNZ</Authors>
         <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageProjectUrl>https://github.com/Liteboxnz/Brutal.ImGuizmo</PackageProjectUrl>
     </PropertyGroup>
 
     <ItemGroup>
-      <None Include="..\README.md">
+      <None Include="..\Package\README.md">
         <Pack>True</Pack>
         <PackagePath>\</PackagePath>
       </None>
