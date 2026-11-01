@@ -18,7 +18,8 @@ public enum ImGuizmoOperation
     Rotate, // ROTATE_X | ROTATE_Y | ROTATE_Z | ROTATE_SCREEN,
     Scale, // SCALE_X | SCALE_Y | SCALE_Z,
     ScaleU, // SCALE_XU | SCALE_YU | SCALE_ZU
-    Universal // TRANSLATE | ROTATE | SCALEU
+    Universal, // TRANSLATE | ROTATE | SCALEU
+    Default
 }
 
 public enum ImGuizmoMode
@@ -27,8 +28,125 @@ public enum ImGuizmoMode
 	World
 };
 
+internal struct ImGuizmoStyle
+{
+	float TranslationLineThickness;   // Thickness of lines for translation gizmo
+	float TranslationLineArrowSize;   // Size of arrow at the end of lines for translation gizmo
+	float RotationLineThickness;      // Thickness of lines for rotation gizmo
+	float RotationOuterLineThickness; // Thickness of line surrounding the rotation gizmo
+	float ScaleLineThickness;         // Thickness of lines for scale gizmo
+	float ScaleLineCircleSize;        // Size of circle at the end of lines for scale gizmo
+	float HatchedAxisLineThickness;   // Thickness of hatched axis lines
+	float CenterCircleSize;           // Size of circle at the center of the translate/scale gizmo
+
+	List<float4> Colors;
+};
+internal class ImGuizmoContext
+{
+
+      ImDrawList? mDrawList;
+      ImGuizmoStyle mStyle;
+
+      ImGuizmoMode mMode;
+      float4x4 mViewMat;
+      float4x4 mProjectionMat;
+      float4x4 mModel;
+      float4x4 mModelLocal; // orthonormalized model
+      float4x4 mModelInverse;
+      float4x4 mModelSource;
+      float4x4 mModelSourceInverse;
+      float4x4 mMVP;
+      float4x4 mMVPLocal; // MVP with full model matrix whereas mMVP's model matrix might only be translation in case of World space edition
+      float4x4 mViewProjection;
+
+      float4 mModelScaleOrigin;
+      float4 mCameraEye;
+      float4 mCameraRight;
+      float4 mCameraDir;
+      float4 mCameraUp;
+      float4 mRayOrigin;
+      float4 mRayVector;
+
+      float  mRadiusSquareCenter;
+      float2 mScreenSquareCenter;
+      float2 mScreenSquareMin;
+      float2 mScreenSquareMax;
+
+      float mScreenFactor;
+      float4 mRelativeOrigin;
+
+      bool mbUsing = false;
+      bool mbUsingViewManipulate = false;
+      bool mbEnable = true;
+      bool mbMouseOver;
+      bool mReversed; // reversed projection matrix
+      bool mIsViewManipulatorHovered = false;
+
+      // translation
+      float4 mTranslationPlan;
+      float4 mTranslationPlanOrigin;
+      float4 mMatrixOrigin;
+      float4 mTranslationLastDelta;
+
+      // rotation
+      float4 mRotationVectorSource;
+      float mRotationAngle;
+      float mRotationAngleOrigin;
+      //float4 mWorldToLocalAxis;
+
+      // scale
+      float4 mScale;
+      float4 mScaleValueOrigin;
+      float4 mScaleLast;
+      float mSaveMousePosx;
+
+      // save axis factor when using gizmo
+      bool3 mBelowAxisLimit;
+      int mAxisMask = 0;
+      bool3 mBelowPlaneLimit;
+      float3 mAxisFactor;
+
+      float mAxisLimit=0.0025f;
+      float mPlaneLimit=0.02f;
+
+      // bounds stretching
+      float4 mBoundsPivot;
+      float4 mBoundsAnchor;
+      float4 mBoundsPlan;
+      float4 mBoundsLocalPivot;
+      int mBoundsBestAxis;
+      int2 mBoundsAxis;
+      bool mbUsingBounds = false;
+      float4x4 mBoundsMatrix;
+
+      //
+      int mCurrentOperation;
+
+      public float mX = 0.0f;
+      public float mY = 0.0f;
+      public float mWidth = 0.0f;
+      public float mHeight = 0.0f;
+      public float mXMax = 0.0f;
+      public float mYMax = 0.0f;
+      public float mDisplayRatio = 1.0f;
+
+      bool mIsOrthographic = false;
+      // check to not have multiple gizmo highlighted at the same time
+      bool mbOverGizmoHotspot = false;
+
+      ImGuiWindow? mAlternativeWindow;
+      ImVector<ImGuiID> mIDStack;
+      private ImGuiID? mEditingID;
+      private ImGuizmoOperation mOperation = ImGuizmoOperation.Default;
+
+      bool mAllowAxisFlip = true;
+      float mGizmoSizeClipSpace = 0.1f;
+}
+
 public static class ImGuizmo
 {
+	static ImGuizmoContext gContext = new ImGuizmoContext();
+	
     // call inside your own window and before Manipulate() in order to draw gizmo to that window.
    // Or pass a specific ImDrawList to draw to (e.g. ImGui::GetForegroundDrawList()).
    public static void SetDrawlist(ImDrawList? drawlist)
@@ -100,9 +218,16 @@ public static class ImGuizmo
    
    public static void RecomposeMatrixFromComponents(float3 translation, float3 rotation, float3 scale, float4x4 matrix){
    }
-
+   
    public static void SetRect(float x, float y, float width, float height)
-   {
+   { 
+	   gContext.mX = x;
+	   gContext.mY = y;
+	   gContext.mWidth = width; 
+	   gContext.mHeight = height;
+	   gContext.mXMax = gContext.mX + gContext.mWidth;
+	   gContext.mYMax = gContext.mY + gContext.mXMax;
+	   gContext.mDisplayRatio = width / height;
    }
 
    // default is false
@@ -213,3 +338,4 @@ public static class ImGuizmo
    }
 
 }
+
